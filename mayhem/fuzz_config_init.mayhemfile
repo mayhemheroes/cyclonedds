@@ -1,0 +1,4 @@
+project: PROJECT
+target: fuzz_config_init
+cmds:
+- cmd: /out/fuzz_config_init
