@@ -1,0 +1,4 @@
+project: cyclonedds 
+target: fuzz_handle_rtps_message
+cmds:
+- cmd: /fuzz_handle_rtps_message
