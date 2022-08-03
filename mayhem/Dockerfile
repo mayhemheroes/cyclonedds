@@ -14,7 +14,7 @@
 #
 ################################################################################
 
-FROM gcr.io/oss-fuzz-base/base-builder
+FROM gcr.io/oss-fuzz-base/base-builder as builder
 RUN apt-get update && apt install -y autoconf automake libssl-dev libcunit1 libcunit1-dev bison libbison-dev
 
 COPY . cyclonedds
@@ -23,3 +23,7 @@ COPY mayhem/build.sh $SRC
 WORKDIR $SRC/cyclonedds
 ENV FUZZING_LANGUAGE=c SANITIZER=address
 RUN compile
+
+FROM ubuntu 
+
+COPY --from=builder /out /
