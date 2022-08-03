@@ -7,6 +7,8 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  RTPS_MESSAGE: mayhem/fuzz_handle_rtps_message.mayhemfile
+  INIT_CONFIG: mayhem/fuzz_init_config.mayhemfile
 jobs:
   build:
     name: ${{ matrix.os }} shared=${{ matrix.shared }} ${{ matrix.build_type }}
@@ -42,12 +44,17 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-    - name: Start analysis
+    - name: Start analysis for fuzz_config_init
       uses: forallsecure/mcode-action@v1
       with:
         mayhem-token: ${{ secrets.MAYHEM_TOKEN }}
-        args: --image ${{ steps.meta.outputs.tags }} --cmd /out/fuzz_config_init --target
-          fuzz_config_init --file mayhem/fuzz_config_init.mayhemfile
+        args: --image ${{ steps.meta.outputs.tags }} --file ${{ env.INIT_CONFIG }} 
+        sarif-output: sarif
+    - name: Start analysis for fuzz_handle_rtps_message
+      uses: forallsecure/mcode-action@v1
+      with:
+        mayhem-token: ${{ secrets.MAYHEM_TOKEN }}
+        args: --image ${{ steps.meta.outputs.tags }} --file ${{ env.RTPS_MESSAGE }}
         sarif-output: sarif
     - name: Upload SARIF file(s)
       uses: github/codeql-action/upload-sarif@v2
