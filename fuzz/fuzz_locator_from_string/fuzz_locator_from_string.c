@@ -55,7 +55,7 @@ int LLVMFuzzerTestOneInput(const char *data, size_t size)
 {
   struct ddsi_domaingv gv;
   enum ddsi_transport_selector tr;
-  if(size <= 0)
+  if(size != 40)
   {
     return 0;
   }
@@ -69,6 +69,7 @@ int LLVMFuzzerTestOneInput(const char *data, size_t size)
   struct ddsi_tran_factory * const fact = init(&gv, tr);
   ddsi_locator_t loc;
   //char astr[size] = data;
+  assert(fact);
   ddsi_locator_from_string(&gv, &loc, data, fact);
   fini(&gv);
   return 0;
