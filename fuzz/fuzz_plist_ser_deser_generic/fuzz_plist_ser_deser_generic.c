@@ -45,15 +45,6 @@ int LLVMFuzzerTestOneInput(const char *data, size_t size)
     char buf[256];
   } mem;
 
-  /* Example descs
-   * { {XSTOP}, (raw){0}, 0, (raw){0} },
-   * { {XO,XSTOP}, &(oseq){0, NULL },       4, (raw){SER32(0)} },
-   * { {XO,XSTOP}, &(oseq){1, (raw){3} },   5, (raw){SER32(1), 3} },
-   * { {XS,XSTOP}, &(char *[]){""},         5, (raw){SER32(1), 0} },
-   * { {XS,XSTOP}, &(char *[]){"meow"},     9, (raw){SER32(5), 'm','e','o','w',0} },
-   *
-   */
-
   struct desc fdesc = { .desc = {XSTOP}, .data = (raw){data} };
   // struct desc fdesc;
   // switch(data[0] % 3)

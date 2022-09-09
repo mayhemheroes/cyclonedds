@@ -16,6 +16,5 @@ include("${CMAKE_SOURCE_DIR}/cmake/Modules/Generate.cmake")
 
 add_subdirectory(fuzz_config_init)
 add_subdirectory(fuzz_handle_rtps_message)
-#add_subdirectory(fuzz_parse_xml_date)
 add_subdirectory(fuzz_locator_from_string)
 add_subdirectory(fuzz_plist_ser_deser_generic)
