@@ -55,24 +55,23 @@ int LLVMFuzzerTestOneInput(const char *data, size_t size)
 {
   struct ddsi_domaingv gv;
   enum ddsi_transport_selector tr;
-  if(size <= 0)
+  // strchr crashes without a null terminator
+  if(size <= 0 || data[size - 1] != '\0')
   {
     return 0;
   }
-  if(strchr(data, '/'))
+
+  switch(data[0] % 4)
   {
-    switch(data[0] % 4)
-    {
-      case 0: tr = DDSI_TRANS_UDP;
-      case 1: tr = DDSI_TRANS_TCP;
-      case 2: tr = DDSI_TRANS_UDP6;
-      case 3: tr = DDSI_TRANS_TCP6;
-    }
-    struct ddsi_tran_factory * const fact = init(&gv, tr);
-    ddsi_locator_t loc;
-    assert(fact);
-    ddsi_locator_from_string(&gv, &loc, data, fact);
-    fini(&gv);
+    case 0: tr = DDSI_TRANS_UDP;
+    case 1: tr = DDSI_TRANS_TCP;
+    case 2: tr = DDSI_TRANS_UDP6;
+    case 3: tr = DDSI_TRANS_TCP6;
   }
+  struct ddsi_tran_factory * const fact = init(&gv, tr);
+  ddsi_locator_t loc;
+  assert(fact);
+  ddsi_locator_from_string(&gv, &loc, data, fact);
+  fini(&gv);
   return 0;
 }
