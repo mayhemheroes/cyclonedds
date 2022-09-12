@@ -48,6 +48,7 @@ jobs:
       matrix:
         mayhemfile:
           - mayhem/fuzz_plist_ser_deser_generic.mayhemfile
+          - mayhem/fuzz_qset_entity.mayhemfile
           - mayhem/fuzz_handle_rtps_message.mayhemfile
           - mayhem/fuzz_locator_from_string.mayhemfile
           - mayhem/fuzz_init_config.mayhemfile
