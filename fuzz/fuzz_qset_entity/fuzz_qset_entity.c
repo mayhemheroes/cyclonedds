@@ -20,16 +20,12 @@
 #include "dds/ddsrt/heap.h"
 #include "dds/ddsrt/string.h"
 #include "dds/ddsi/ddsi_xqos.h"
-//#include "test_util.h"
 #include "DataRepresentationTypes.h"
 
 #define DDS_DOMAINID 0
 #define DDS_CONFIG "${CYCLONEDDS_URI}${CYCLONEDDS_URI:+,}<Discovery><ExternalDomainId>0</ExternalDomainId></Discovery>"
 
-#define MAX_DR 10
 #define DESC(n) DataRepresentationTypes_ ## n ## _desc
-#define XCDR1 DDS_DATA_REPRESENTATION_XCDR1
-#define XCDR2 DDS_DATA_REPRESENTATION_XCDR2
 
 static dds_entity_t d, dp;
 
@@ -57,20 +53,9 @@ int LLVMFuzzerTestOneInput(const char *data, size_t size)
   dds_entity_t ent = 0;
   ent = dds_create_reader(dp, tp, NULL, NULL);
   ent = dds_create_writer(dp, tp, NULL, NULL);
-  //datarep_qos_exp_t exp = { .exp = { { XCDR1, XCDR2 }, 2 } };
-  //exp_qos (ent, &exp);
   dds_qos_t *qos = dds_create_qos();
   dds_qset_userdata(qos, data, size);
   dds_set_qos(ent, qos);
-  //exp_qos (ent, &exp);
-
-  // change data representation
-  //dds_qset_data_representation (qos, 1, (dds_data_representation_id_t[]) { XCDR2 });
-  //ret = dds_set_qos (ent, qos);
-  //if(ret != DDS_RETCODE_IMMUTABLE_POLICY)
-  //{
-  //  panic();
-  //}
   dds_delete_qos (qos);
 
   data_representation_fini();
