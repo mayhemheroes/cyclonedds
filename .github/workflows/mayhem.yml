@@ -51,6 +51,7 @@ jobs:
           - mayhem/fuzz_handle_rtps_message.mayhemfile
           - mayhem/fuzz_locator_from_string.mayhemfile
           - mayhem/fuzz_init_config.mayhemfile
+        # - mayhem/fuzz_nn_participant_generic_message_init
 
     steps:
       - uses: actions/checkout@v2
