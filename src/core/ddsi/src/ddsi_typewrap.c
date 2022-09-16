@@ -139,13 +139,11 @@ struct DDS_XTypes_TypeIdentifier * ddsi_typeid_dup_impl (const struct DDS_XTypes
 
 ddsi_typeid_t * ddsi_typeid_dup_from_impl (const struct DDS_XTypes_TypeIdentifier *src)
 {
-  DDSRT_STATIC_ASSERT (offsetof (struct ddsi_typeid, x) == 0);
   return (ddsi_typeid_t *) ddsi_typeid_dup_impl (src);
 }
 
 ddsi_typeid_t * ddsi_typeid_dup (const ddsi_typeid_t *src)
 {
-  DDSRT_STATIC_ASSERT (offsetof (struct ddsi_typeid, x) == 0);
   return (ddsi_typeid_t *) ddsi_typeid_dup_impl (&src->x);
 }
 
@@ -881,7 +879,7 @@ static dds_return_t xt_validate_impl (struct ddsi_domaingv *gv, const struct xt_
         {
           if (has_default)
           {
-            GVTRACE ("multiple default flags in union members (index %u)\n", n);
+            GVTRACE ("multiple default flags in union members (index %"PRIu32")\n", n);
             return DDS_RETCODE_BAD_PARAMETER;
           }
           has_default = true;

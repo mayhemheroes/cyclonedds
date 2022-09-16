@@ -266,9 +266,9 @@ static void print_nwpart_seq (struct st *st, void *vr)
 {
   struct ddsi_reader * const r = vr;
   char buf[DDSI_LOCSTRLEN];
-  for (const struct networkpartition_address *a = r->uc_as; a != NULL; a = a->next)
+  for (const struct ddsi_networkpartition_address *a = r->uc_as; a != NULL; a = a->next)
     cpfstr (st, ddsi_locator_to_string (buf, sizeof(buf), &a->loc));
-  for (const struct networkpartition_address *a = r->mc_as; a != NULL; a = a->next)
+  for (const struct ddsi_networkpartition_address *a = r->mc_as; a != NULL; a = a->next)
     cpfstr (st, ddsi_locator_to_string (buf, sizeof(buf), &a->loc));
 }
 #endif
@@ -651,7 +651,7 @@ static void debmon_handle_connection (struct debug_monitor *dm, ddsi_tran_conn_t
   const char *http_header = "HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\n";
   const ddsrt_iovec_t iov = { .iov_base = (void *) http_header, .iov_len = (ddsrt_iov_len_t) strlen (http_header) };
 
-  struct thread_state * const thrst = lookup_thread_state ();
+  struct thread_state * const thrst = ddsi_lookup_thread_state ();
   struct st st = {
     .conn = conn,
     .gv = dm->gv,

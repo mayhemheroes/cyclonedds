@@ -720,6 +720,7 @@ static int if_network_partition (struct cfgst *cfgst, void *parent, struct cfgel
   if (new == NULL)
     return -1;
   new->address_string = NULL;
+  new->interface_names = NULL;
   new->uc_addresses = NULL;
   new->asm_addresses = NULL;
 #ifdef DDS_HAS_SSM
@@ -2378,6 +2379,19 @@ static int setup_network_partitions (struct cfgst *cfgst)
   int ok = 1;
 #ifdef DDS_HAS_NETWORK_PARTITIONS
   const uint32_t domid = cfgst->cfg->domainId;
+  for (struct ddsi_config_networkpartition_listelem *p = cfgst->cfg->networkPartitions; p; p = p->next)
+  {
+    for (struct ddsi_config_networkpartition_listelem *q = p->next; q; q = q->next)
+    {
+      if (ddsrt_strcasecmp (p->name, q->name) == 0)
+      {
+        DDS_ILOG (DDS_LC_ERROR, domid, "config: DDSI2Service/Partitioning/PartitionMappings/PartitionMapping[@networkpartition]: %s: duplicate partition\n", p->name);
+        ok = 0;
+      }
+    }
+  }
+  if (!ok)
+    return ok;
   /* Create links from the partitionmappings to the network partitions
      and signal errors if partitions do not exist */
   struct ddsi_config_partitionmapping_listelem * m = cfgst->cfg->partitionMappings;
