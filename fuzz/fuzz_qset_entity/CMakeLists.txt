@@ -18,7 +18,7 @@ if(NOT TARGET CycloneDDS::ddsc)
   find_package(CycloneDDS REQUIRED)
 endif()
 
-idlc_generate(TARGET DataRepresentationTypes FILES DataRepresentationTypes.idl WARNINGS no-implicit-extensibility)
+idlc_generate(TARGET DataRepresentationTypesFuzz FILES DataRepresentationTypes.idl WARNINGS no-implicit-extensibility)
 
 add_executable(fuzz_qset_entity fuzz_qset_entity.c)
 target_include_directories(
@@ -28,4 +28,4 @@ target_include_directories(
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../src/core/ddsi/include>"
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../src/ddsrt/include>"
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../src/ddsrt/src>")
-target_link_libraries(fuzz_qset_entity DataRepresentationTypes CycloneDDS::ddsc $ENV{LIB_FUZZING_ENGINE})
+target_link_libraries(fuzz_qset_entity DataRepresentationTypesFuzz CycloneDDS::ddsc $ENV{LIB_FUZZING_ENGINE})
