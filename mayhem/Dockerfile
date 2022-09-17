@@ -23,7 +23,9 @@ COPY mayhem/build.sh $SRC
 WORKDIR $SRC/cyclonedds
 ENV FUZZING_LANGUAGE=c SANITIZER=address
 RUN compile
+WORKDIR /out
+RUN for zip in $(ls *.zip); do unzip $zip -d $(basename $zip .zip); done
 
-FROM ubuntu 
+FROM ubuntu
 
 COPY --from=builder /out /

@@ -1,0 +1,4 @@
+project: cyclonedds 
+target: fuzz_locator_from_string
+cmds:
+- cmd: /fuzz_locator_from_string
