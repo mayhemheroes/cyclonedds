@@ -20,22 +20,27 @@
  #include "dds/ddsi/ddsi_xqos.h"
  #include "ddsi__plist_generic.h"
 
-
  struct desc {
-   const enum pserop desc[20];
-   const void *data;
-   size_t exp_sersize;
-   const unsigned char *exp_ser;
+  const enum ddsi_pserop desc[20];
+  const void *data;
+  size_t exp_sersize;
+  const unsigned char *exp_ser;
 
-   /* XbPROP means expectation after deser may be different from input, if exp_data
-      is NULL, use "data", else use "exp_data" */
-   const void *exp_data;
- };
+  /* XbPROP means expectation after deser may be different from input, if exp_data
+     is NULL, use "data", else use "exp_data" */
+  const void *exp_data;
+};
 
- typedef unsigned char raw[];
- typedef uint32_t raw32[];
- typedef uint64_t raw64[];
- typedef ddsi_octetseq_t oseq;
+struct desc_invalid {
+  const enum ddsi_pserop desc[20];
+  size_t sersize;
+  const unsigned char *ser;
+};
+
+typedef unsigned char raw[];
+typedef uint32_t raw32[];
+typedef uint64_t raw64[];
+typedef ddsi_octetseq_t oseq;
 
 int LLVMFuzzerTestOneInput(const char *data, size_t size)
 {
