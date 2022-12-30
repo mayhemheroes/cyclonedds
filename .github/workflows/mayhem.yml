@@ -74,13 +74,12 @@ jobs:
         with:
           mayhem-token: ${{ secrets.MAYHEM_TOKEN }}
           args: --image ${{ needs.build.outputs.image }} --file mayhem/${{ matrix.target }}.mayhemfile --duration 300
-          sarif-output: sarifs/${{ matrix.target }}.sarif
+          sarif-output: /sarifs/${{ matrix.target }}.sarif
   sarif:
     needs: mayhem
     name: SARIF bulk upload
-    runs-on: ubuntu-latest
     steps:
       - name: Upload SARIF file(s)
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: sarifs
+          sarif_file: /sarifs
