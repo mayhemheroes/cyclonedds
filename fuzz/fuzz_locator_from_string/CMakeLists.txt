@@ -10,7 +10,7 @@
 # SPDX-License-Identifier: EPL-2.0 OR BSD-3-Clause
 #
 
-project(fuzz_handle_rtps_message LANGUAGES C)
+project(fuzz_locator_from_string LANGUAGES C)
 cmake_minimum_required(VERSION 3.5)
 
 if(NOT TARGET CycloneDDS::ddsc)
@@ -18,11 +18,9 @@ if(NOT TARGET CycloneDDS::ddsc)
   find_package(CycloneDDS REQUIRED)
 endif()
 
-add_executable(fuzz_handle_rtps_message fuzz_handle_rtps_message.c)
+add_executable(fuzz_locator_from_string fuzz_locator_from_string.c)
 target_include_directories(
-  fuzz_handle_rtps_message PRIVATE
-  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../src/core/ddsc/src>"
-  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../src/core/cdr/include>"
+  fuzz_locator_from_string PRIVATE
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../src/core/ddsi/src>"
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../src/core/ddsi/include>")
-target_link_libraries(fuzz_handle_rtps_message CycloneDDS::ddsc $ENV{LIB_FUZZING_ENGINE})
+target_link_libraries(fuzz_locator_from_string CycloneDDS::ddsc $ENV{LIB_FUZZING_ENGINE})

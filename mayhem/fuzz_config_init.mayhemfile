@@ -1,0 +1,4 @@
+project: cyclonedds 
+target: fuzz_config_init
+cmds:
+- cmd: /fuzz_config_init

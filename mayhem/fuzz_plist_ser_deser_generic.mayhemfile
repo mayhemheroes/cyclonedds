@@ -1,0 +1,4 @@
+project: cyclonedds
+target: fuzz_plist_ser_deser_generic
+cmds:
+- cmd: /fuzz_plist_ser_deser_generic

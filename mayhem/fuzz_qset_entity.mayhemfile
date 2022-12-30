@@ -1,0 +1,4 @@
+project: cyclonedds 
+target: fuzz_qset_entity
+cmds:
+- cmd: /fuzz_qset_entity

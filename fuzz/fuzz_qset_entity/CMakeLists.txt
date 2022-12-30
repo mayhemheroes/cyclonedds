@@ -10,7 +10,7 @@
 # SPDX-License-Identifier: EPL-2.0 OR BSD-3-Clause
 #
 
-project(fuzz_handle_rtps_message LANGUAGES C)
+project(fuzz_qset_entity LANGUAGES C)
 cmake_minimum_required(VERSION 3.5)
 
 if(NOT TARGET CycloneDDS::ddsc)
@@ -18,11 +18,14 @@ if(NOT TARGET CycloneDDS::ddsc)
   find_package(CycloneDDS REQUIRED)
 endif()
 
-add_executable(fuzz_handle_rtps_message fuzz_handle_rtps_message.c)
+idlc_generate(TARGET DataRepresentationTypesFuzz FILES DataRepresentationTypes.idl WARNINGS no-implicit-extensibility)
+
+add_executable(fuzz_qset_entity fuzz_qset_entity.c)
 target_include_directories(
-  fuzz_handle_rtps_message PRIVATE
-  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../src/core/ddsc/src>"
-  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../src/core/cdr/include>"
+  fuzz_qset_entity PRIVATE
+  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../src/core/ddsc/tests>"
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../src/core/ddsi/src>"
-  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../src/core/ddsi/include>")
-target_link_libraries(fuzz_handle_rtps_message CycloneDDS::ddsc $ENV{LIB_FUZZING_ENGINE})
+  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../src/core/ddsi/include>"
+  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../src/ddsrt/include>"
+  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../src/ddsrt/src>")
+target_link_libraries(fuzz_qset_entity DataRepresentationTypesFuzz CycloneDDS::ddsc $ENV{LIB_FUZZING_ENGINE})

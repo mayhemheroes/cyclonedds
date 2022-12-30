@@ -12,26 +12,21 @@
 # SPDX-License-Identifier: EPL-2.0 OR BSD-3-Clause
 #
 
-source fuzz/fuzz_sample_deser/prepare.sh
-source fuzz/fuzz_handshake/prepare.sh
 (
-mkdir build || echo "build directory already exists"
+mkdir build
 cd build
 cmake \
     -DBUILD_IDLC=ON \
-    -DEXPORT_ALL_SYMBOLS=ON \
+    -DBUILD_TESTING=ON \
     -DBUILD_SHARED_LIBS=OFF \
     -DBUILD_EXAMPLES=NO \
-    -DENABLE_SECURITY=ON \
-    -DENABLE_SSL=ON \
-    -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
+    -DENABLE_SECURITY=NO \
+    -DENABLE_SSL=NO \
     -DCMAKE_INSTALL_PREFIX=/usr/local ..
 cmake --build .
 cmake --build . --target install
 cd ..
 )
-
-cp fuzz/*.options $OUT
 
 # copy fuzzer executables to $OUT
 find build/bin -type f -name 'fuzz_*' | while read fuzzer; do
