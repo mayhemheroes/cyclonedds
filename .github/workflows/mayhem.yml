@@ -63,7 +63,7 @@ jobs:
           MAYHEMFILE: ${{ matrix.mayhemfile }}
         id: parse
         shell: bash
-        run: echo "::set-output name=sarif::${MAYHEMFILE##*/%%.*}"
+        run: echo "sarif::${MAYHEMFILE##*/%%.*}" >> $GITHUB_OUTPUT
 
       - name: Start analysis for ${{ matrix.mayhemfile }}
         uses: ForAllSecure/mcode-action@v2
