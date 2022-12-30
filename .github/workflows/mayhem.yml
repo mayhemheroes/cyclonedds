@@ -57,31 +57,24 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        mayhemfile:
-          - mayhem/fuzz_plist_ser_deser_generic.mayhemfile
-          - mayhem/fuzz_qset_entity.mayhemfile
-          - mayhem/fuzz_handle_rtps_message.mayhemfile
-          - mayhem/fuzz_locator_from_string.mayhemfile
-          - mayhem/fuzz_config_init.mayhemfile
-        # - mayhem/fuzz_nn_participant_generic_message_init
+        target:
+          - fuzz_plist_ser_deser_generic
+          - fuzz_qset_entity
+          - fuzz_handle_rtps_message
+          - fuzz_locator_from_string
+          - fuzz_config_init
+        # - fuzz_nn_participant_generic_message_init
 
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      
-      - name: Get SARIF name
-        env:
-          MAYHEMFILE: ${{ matrix.mayhemfile }}
-        id: parse
-        shell: bash
-        run: echo "sarif::${MAYHEMFILE##*/%%.*}" >> $GITHUB_OUTPUT
 
       - name: Start analysis for ${{ matrix.mayhemfile }}
         uses: ForAllSecure/mcode-action@v1
         with:
           mayhem-token: ${{ secrets.MAYHEM_TOKEN }}
-          args: --image ${{ needs.build.outputs.image }} --file ${{ matrix.mayhemfile }} --duration 300
-          sarif-output: sarifs/${{ steps.parse.outputs.sarif }}
+          args: --image ${{ needs.build.outputs.image }} --file mayhem/${{ matrix.target }}.mayhemfile --duration 300
+          sarif-output: sarifs/${{ matrix.target }}.sarif
   sarif:
     needs: mayhem
     name: SARIF
