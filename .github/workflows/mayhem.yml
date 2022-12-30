@@ -77,7 +77,7 @@ jobs:
         run: echo "sarif::${MAYHEMFILE##*/%%.*}" >> $GITHUB_OUTPUT
 
       - name: Start analysis for ${{ matrix.mayhemfile }}
-        uses: ForAllSecure/mcode-action@v2
+        uses: ForAllSecure/mcode-action@v1
         with:
           mayhem-token: ${{ secrets.MAYHEM_TOKEN }}
           args: --image ${{ needs.build.outputs.image }} --file ${{ matrix.mayhemfile }} --duration 300
