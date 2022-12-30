@@ -62,11 +62,11 @@ int LLVMFuzzerTestOneInput(const char *data, size_t size)
 
   void *ser;
   size_t sersize;
-  (void) plist_ser_generic(&ser, &sersize, fdesc.data, fdesc.desc);
-  (void) plist_deser_generic(&mem, ser, sersize, false, fdesc.desc);
+  (void) ddsi_plist_ser_generic(&ser, &sersize, fdesc.data, fdesc.desc);
+  (void) ddsi_plist_deser_generic(&mem, ser, sersize, false, fdesc.desc);
 
   ddsrt_free(ser);
-  plist_fini_generic(&mem, fdesc.desc, false);
+  ddsi_plist_fini_generic(&mem, fdesc.desc, false);
 
   return 0;
 }
