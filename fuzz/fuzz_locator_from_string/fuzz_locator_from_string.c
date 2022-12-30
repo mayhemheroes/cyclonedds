@@ -17,12 +17,10 @@
 
  #include "dds/ddsrt/heap.h"
  #include "dds/ddsrt/sockets.h"
- #include "dds/ddsi/ddsi_tran.h"
  #include "dds/ddsi/ddsi_domaingv.h"
- #include "dds/ddsi/ddsi_udp.h"
- #include "dds/ddsi/ddsi_tcp.h"
- #include "dds/ddsi/ddsi_config_impl.h"
- #include "dds/ddsi/q_rtps.h"
+ #include "ddsi__tran.h"
+ #include "ddsi__udp.h"
+ #include "ddsi__tcp.h"
 
  static struct ddsi_tran_factory *init(struct ddsi_domaingv *gv, enum ddsi_transport_selector tr)
  {
