@@ -18,7 +18,8 @@
  #include "dds/ddsrt/heap.h"
  #include "dds/ddsrt/endian.h"
  #include "dds/ddsi/ddsi_xqos.h"
- #include "dds/ddsi/ddsi_plist_generic.h"
+ #include "ddsi__plist_generic.h"
+
 
  struct desc {
    const enum pserop desc[20];
