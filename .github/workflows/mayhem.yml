@@ -53,7 +53,7 @@ jobs:
 
   mayhem:
     needs: build
-    name: 'fuzz ${{ matrix.mayhemfile }}'
+    name: 'fuzz ${{ matrix.target }}'
     runs-on: ubuntu-latest
     strategy:
       matrix:
