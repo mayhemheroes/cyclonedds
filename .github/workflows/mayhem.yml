@@ -77,7 +77,7 @@ jobs:
           sarif-output: sarifs/${{ matrix.target }}.sarif
   sarif:
     needs: mayhem
-    name: SARIF
+    name: SARIF bulk upload
     runs-on: ubuntu-latest
     steps:
       - name: Upload SARIF file(s)
