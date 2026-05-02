@@ -68,3 +68,9 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v6.0.2
+
+      - name: Start analysis for ${{ matrix.target }}
+        uses: ForAllSecure/mcode-action@long-runs
+        with:
+          mayhem-token: ${{ secrets.MAYHEM_TOKEN }}
+          args: --image ${{ needs.build.outputs.image }} --file mayhem/${{ matrix.target }}.mayhemfile --duration 300
